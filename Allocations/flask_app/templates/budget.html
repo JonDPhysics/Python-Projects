@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allocations</title>
+</head>
+<body>
+    <div id="container">
+        <div class="bar">
+            <h1>Account: {{ budget.aname }}</h1>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout">Logout</a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Balance</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ budget.bname }}</td>
+                    <td>{{ budget.amount }}</td>
+                    <td>{{ budget.bdate }}</td>
+                    <td>{{ budget. }}</td>
+                    <td>
+                        <a href="/budget/edit/{{budget.id}}">Edit</a>
+                        <a href="/budget/delete/{{budget.id}}">Delete</a>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
