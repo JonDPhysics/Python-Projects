@@ -10,10 +10,10 @@ class User:
         self.fname = data['fname']
         self.lname = data['lname']
         self.email = data['email']
-        self.password = data['password']
+        self.pw = data['pw']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.accounts = []
+        self.all_accounts = []
 
     @classmethod
     def get_all_users(cls):
@@ -47,7 +47,7 @@ class User:
 
     @classmethod
     def get_user_with_accounts(cls, data):
-        query = "SELECT * FROM users LEFT JOIN accounts.user_id = users.id WHERE users.id = %(id)s;"
+        query = "SELECT * FROM users LEFT JOIN accounts ON accounts.user_id = users.id WHERE users.id = %(id)s;"
         results = connectToMySQL(SCHEMA).query_db(query, data)
         if not results:
             return False
@@ -58,10 +58,10 @@ class User:
                 "user_id": data["user_id"],
                 "aname" : data["aname"],
                 "balance": data["balance"],
-                "created_at": data["accounts.created_at"],
-                "updated_at": data["accounts.updated_at"]
+                "created_at" : data["accounts.created_at"],
+                "updated_at" : data["accounts.updated_at"]
             }
-            user.accounts.append(Account(account_data))
+            user.all_accounts.append(Account(account_data))
         return user
 
     @staticmethod
@@ -85,11 +85,11 @@ class User:
                 flash("Email is already in use.")
                 is_valid = False
 
-        if len(pd["password"]) < 8:
+        if len(pd["pw"]) < 8:
             flash("Password must be at least 8 characters.")
             is_valid = False
 
-        if pd["password"] != pd['confirm_password']:
+        if pd["pw"] != pd['cpw']:
             flash("Passwords do not match.")
             is_valid = False
 
@@ -103,7 +103,7 @@ class User:
             flash("Email not registered")
             return False
 
-        if not BCRYPT.check_password_hash(user.password, pd["password"]):
+        if not BCRYPT.check_password_hash(user.pw, pd["pw"]):
             flash("Incorrect Password")
             return False
 

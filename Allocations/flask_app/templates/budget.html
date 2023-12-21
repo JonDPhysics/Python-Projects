@@ -9,32 +9,36 @@
 <body>
     <div id="container">
         <div class="bar">
-            <h1>Account: {{ budget.aname }}</h1>
+            <h1>{{ account.aname }}</h1>
             <a href="/dashboard">Dashboard</a>
             <a href="/logout">Logout</a>
         </div>
         <table>
             <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Balance</th>
-                    <th>Actions</th>
+                <tr class="topRow">
+                    <th class="topCol">Name</th>
+                    <th class="topCol">Amount</th>
+                    <th class="topCol">Date</th>
+                    <th class="topCol">Balance</th>
+                    <th class="topCol">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{{ budget.bname }}</td>
-                    <td>{{ budget.amount }}</td>
-                    <td>{{ budget.bdate }}</td>
-                    <td>{{ budget. }}</td>
+                {% for budget in account.all_budgets: %}
+                <tr class="row1">
+                    <td class="col">{{ budget.bname }}</td>
+                    <td class="col">{{ budget.amount }}</td>
+                    <td class="col">{{ budget.date }}</td>
                     <td>
-                        <a href="/budget/edit/{{budget.id}}">Edit</a>
-                        <a href="/budget/delete/{{budget.id}}">Delete</a>
+                        <a href="/budget/edit/{{account.id}}">Edit</a>
+                        <a href="/budget/delete/{{account.id}}">Delete</a>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div>
+        <h3><a href="/budget/new/{{ account.id }}">Add to Budget</a></h3>
     </div>
 </body>
 </html>

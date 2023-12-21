@@ -15,16 +15,16 @@ def start():
 def dashboard():
     if not session:
         return redirect("/")
-    return render_template("dashboard.html", user = User.get_user_by_id({"id": session['uuid']}))
+    return render_template("dashboard.html", user = User.get_user_with_accounts({"id": session['uuid']}))
 
 @app.route("/register", methods=['POST'])
 def reg():
     if not User.reg_val(request.form):
         return redirect("/")
-    hash_it_out = BCRYPT.generate_password_hash(request.form["password"])
+    hash_it_out = BCRYPT.generate_password_hash(request.form["pw"])
     data = {
         **request.form,
-        "password": hash_it_out
+        "pw": hash_it_out
     }
 
     User.insert_user(data)

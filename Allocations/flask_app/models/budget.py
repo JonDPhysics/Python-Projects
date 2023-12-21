@@ -8,7 +8,7 @@ import re
 
 BCRYPT = Bcrypt(app)
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
-SCHEMA = "allocations"
+SCHEMA = "allocations_db"
 
 class Budget:
     def __init__(self, data):
@@ -16,8 +16,9 @@ class Budget:
         self.account_id = data["account_id"]
         self.bname = data['bname']
         self.amount = data["amount"]
-        self.bdate = data["bdate"]
+        self.date = data["date"]
         self.inout = data['inout']
+        self.interval = data["interval"]
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
@@ -40,12 +41,12 @@ class Budget:
 
     @classmethod
     def insert_budget(cls, data):
-        query = "INSERT FROM budgets (amount, bdate, bname, inout, account_id, account_user_id) VALUE (%(amount)s, %(bdate)s, %(bname)s, %(inout)s, %(account_id)s, %(account_user_id)s);"
+        query = "INSERT FROM budgets (amount, date, bname, inout, interval, account_id) VALUE (%(amount)s, %(date)s, %(bname)s, %(inout)s, %(interval)s, %(account_id)s);"
         return connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod
     def update_budget(cls, data):
-        query = "UPDATE budgets SET amount = %(amount)s, bdate = %(bdate)s, bname = %(bname)s, inout = %(inout)s, account_id = %(account_id)s, account_user_id = %(account_user_id)s;"
+        query = "UPDATE budgets SET amount = %(amount)s, date = %(date)s, bname = %(bname)s, inout = %(inout)s, account_id = %(account_id)s, account_user_id = %(account_user_id)s;"
         connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod

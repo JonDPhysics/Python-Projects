@@ -12,7 +12,7 @@ class Account:
         self.balance = data["balance"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
-        self.budgets = []
+        self.all_budgets = []
 
     @classmethod
     def get_accounts(cls):
@@ -30,6 +30,16 @@ class Account:
         if not results:
             return False
         return Account(results[0])
+    
+    @classmethod
+    def get_accounts_by_user_id(cls, data):
+        query = "SELECT * FROM accounts WHERE user_id = %(id)s;"
+        results = connectToMySQL(SCHEMA).query_db(query, data)
+        accounts = []
+        for account in results:
+            accounts.append(cls(account))
+        return accounts
+        
 
     @classmethod
     def insert_account(cls, data):
@@ -49,7 +59,7 @@ class Account:
 
     @classmethod
     def get_accounts_with_budgets(cls, data):
-        query = "SELECT * FROM accounts LEFT JOIN budgets.account_id = accounts.id WHERE accounts.id = %(id)s;"
+        query = "SELECT * FROM accounts LEFT JOIN budgets ON budgets.account_id = accounts.id WHERE accounts.id = %(id)s;"
         results = connectToMySQL(SCHEMA).query_db(query, data)
         if not results:
             return False
@@ -57,14 +67,16 @@ class Account:
         for data in results:
             budget_data = {
                 "id": data["budgets.id"],
-                "accounts_id": data["account_id"],
+                "account_id": data["account_id"],
                 "bname": data["bname"],
                 "amount": data["amount"],
-                "bdate": data["bdate"],
+                "date": data["date"],
+                "inout": data["inout"],
+                "interval": data["interval"],
                 "created_at": data["created_at"],
                 "updated_at": data["updated_at"]
             }
-            account.budgets.append(Budget(budget_data))
+            account.all_budgets.append(Budget(budget_data))
         return account
 
     @staticmethod

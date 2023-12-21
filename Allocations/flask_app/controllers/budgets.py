@@ -4,9 +4,9 @@ from flask.globals import request
 from flask import render_template, redirect, request, session
 from flask_app.models.budget import Budget
 
-@app.route("/budget/new")
+@app.route("/budget/new/<int:account_id>")
 def new_budget():
-    return render_template("add_budget.html")
+    return render_template("add_budget.html", )
 
 @app.route("/budget/add/<int:account_id>", methods=["POST"])
 def add_budget(account_id):

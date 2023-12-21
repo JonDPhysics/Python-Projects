@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allocations</title>
+</head>
+<body>
+    
+    <div id="container">
+        <div class="bar">
+            <h1>Welcome, {{ user.fname }}</h1>
+        </div>
+        <h3>Your Accounts</h3>
+        <table>
+            <thead>
+                <tr class="topRow">
+                    <th class="topCol">Name</th>
+                    <th class="topCol">Balance</th>
+                    <th class="topCol">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in user.all_accounts: %}
+                    <tr class="row1">
+                        <td class="col">
+                            <a href="/budget/{{ account.id }}">{{ account.aname }}</a>
+                        </td>
+                        <td class="col">{{ account.balance }}</td>
+                        <td class="col">
+                            <a href="/accounts/edit/{{ account.id }}">Edit</a>
+                            <a href="/accounts/delete/{{ account.id }}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/accounts/new">Add Account</a>
+        <a href="/logout">Logout</a>
+    </div>
+</body>
+</html>
