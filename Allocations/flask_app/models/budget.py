@@ -14,26 +14,26 @@ class Budget:
     def __init__(self, data):
         self.id = data['id']
         self.account_id = data["account_id"]
-        self.bname = data['bname']
+        self.iname = data['iname']
         self.amount = data["amount"]
-        self.date = data["date"]
-        self.inout = data['inout']
-        self.interval = data["interval"]
+        self.idate = data["idate"]
+        self.inorout = data['inorout']
+        self.frequency = data["frequency"]
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
     @classmethod
     def get_budgets(cls):
-        query = "SELECT * FROM budgets;"
+        query = "SELECT * FROM inputs;"
         results = connectToMySQL(SCHEMA).query_db(query)
-        budgets = []
-        for budget in results:
-            budgets.append(cls(budget))
-        return budgets
+        inputs = []
+        for input in results:
+            inputs.append(cls(input))
+        return inputs
 
     @classmethod
     def get_budget_by_id(cls, data):
-        query = "SELECT * FROM budgets WHERE id = %(id)s;"
+        query = "SELECT * FROM inputs WHERE id = %(id)s;"
         results = connectToMySQL(SCHEMA).query_db(query, data)
         if not results:
             return False
@@ -41,17 +41,17 @@ class Budget:
 
     @classmethod
     def insert_budget(cls, data):
-        query = "INSERT FROM budgets (amount, date, bname, inout, interval, account_id) VALUE (%(amount)s, %(date)s, %(bname)s, %(inout)s, %(interval)s, %(account_id)s);"
+        query = "INSERT INTO inputs (iname, amount, idate, inorout, frequency, account_id) VALUE (%(iname)s, %(amount)s, %(idate)s, %(inorout)s, %(frequency)s, %(account_id)s);"
         return connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod
     def update_budget(cls, data):
-        query = "UPDATE budgets SET amount = %(amount)s, date = %(date)s, bname = %(bname)s, inout = %(inout)s, account_id = %(account_id)s, account_user_id = %(account_user_id)s;"
+        query = "UPDATE inputs SET amount = %(amount)s, idate = %(idate)s, bname = %(iname)s, inorout = %(inorout)s, frequency = %(frequency)s, account_id = %(account_id)s;"
         connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod
     def delete_budget(cls, data):
-        query = "DELETE FROM budgets WHERE id = %(id)s;"
+        query = "DELETE FROM inputs WHERE id = %(id)s;"
         connectToMySQL(SCHEMA).query_db(query, data)
         return id
 
@@ -60,7 +60,7 @@ class Budget:
     def add_val(pd):
         is_valid = True
 
-        if len(pd["bname"]) < 1:
+        if len(pd["iname"]) < 1:
             flash("Name must be at least one character.")
             is_valid = False
 

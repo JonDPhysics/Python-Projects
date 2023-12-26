@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allocations</title>
+</head>
+<body>
+    <div id="container">
+        <div class="bar">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout">Logout</a>
+        </div>
+        <h1>Add New Account</h1>
+        <form action="/accounts/add" method="post">
+            <div class="left">
+                <div>
+                    <label for="aname">Account Name:</label>
+                    <input type="text" name="aname">
+                </div>
+                <div>
+                    <label for="balance">Current Balance:</label>
+                    <input type="number" step=".01" name="balance">
+                </div>
+            </div>
+            <button>Add Account</button>
+        </form>
+    </div>
+</body>
+</html>

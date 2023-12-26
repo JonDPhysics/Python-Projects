@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allocations</title>
+</head>
+<body>
+    <div id="container">
+        <div class="bar">
+            <a href="/budget/{{ account.id }}">{{ account.aname }}</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout">Logout</a>
+        </div>
+        <h1>Add Item to {{ account.aname }}'s budget:</h1>
+        <form action="/budget/add/{{account.id}}" method="post">
+            <div>
+                <div>
+                    <label for="iname">Name:</label>
+                    <input type="text" name="iname">
+                </div>
+                <div>
+                    <label for="amount">Amount:</label>
+                    <input type="number" step=".01" name="amount">
+                </div>
+                <div>
+                    <label for="inorout">Income</label>
+                    <input type="radio" name="inorout" value="IN">
+                    <label for="inorout">Expense</label>
+                    <input type="radio" name="inorout" value="OUT">
+
+                </div>
+                <div>
+                    <label for="idate">Date:</label>
+                    <input type="date" name="idate">
+                </div>
+                <div>
+                    <label for="frequency">Frequency:</label>
+                    <select name="frequency">
+                        <option value="ONCE">Once</option>
+                        <option value="WEEKLY">Weekly</option>
+                        <option value="BIMONTHLY">Bi-Monthly</option>
+                        <option value="MONTHLY">Monthly</option>
+                        <option value="QUARTERLY">Quarterly</option>
+                        <option value="YEARLY">Yearly</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</body>
+</html>

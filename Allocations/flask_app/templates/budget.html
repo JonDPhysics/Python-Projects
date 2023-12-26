@@ -9,7 +9,7 @@
 <body>
     <div id="container">
         <div class="bar">
-            <h1>{{ account.aname }}</h1>
+            <h1>{{ theAccount.aname }}</h1>
             <a href="/dashboard">Dashboard</a>
             <a href="/logout">Logout</a>
         </div>
@@ -24,21 +24,21 @@
                 </tr>
             </thead>
             <tbody>
-                {% for budget in account.all_budgets: %}
+                {% for input in account.all_inputs: %}
                 <tr class="row1">
-                    <td class="col">{{ budget.bname }}</td>
-                    <td class="col">{{ budget.amount }}</td>
-                    <td class="col">{{ budget.date }}</td>
+                    <td class="col">{{ input.iname }}</td>
+                    <td class="col">{{ input.amount }}</td>
+                    <td class="col">{{ input.idate }}</td>
                     <td>
-                        <a href="/budget/edit/{{account.id}}">Edit</a>
-                        <a href="/budget/delete/{{account.id}}">Delete</a>
+                        <a href="/budget/edit/{{theAccount.id}}">Edit</a>
+                        <a href="/budget/delete/{{theAccount.id}}">Delete</a>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
     <div>
-        <h3><a href="/budget/new/{{ account.id }}">Add to Budget</a></h3>
+        <h3><a href="/budget/new/{{theAccount.id}}">Add to Budget</a></h3>
     </div>
 </body>
 </html>

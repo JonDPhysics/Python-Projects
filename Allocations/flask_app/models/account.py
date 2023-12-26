@@ -12,7 +12,7 @@ class Account:
         self.balance = data["balance"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
-        self.all_budgets = []
+        self.all_inputs = []
 
     @classmethod
     def get_accounts(cls):
@@ -43,7 +43,7 @@ class Account:
 
     @classmethod
     def insert_account(cls, data):
-        query = "INSERT INTO accounts (aname, balance, adate, user_id) VALUE (%(aname)s, %(balance)s, %(adate)s, %(user_id)s);"
+        query = "INSERT INTO accounts (aname, balance, user_id) VALUE (%(aname)s, %(balance)s, %(user_id)s);"
         return connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod
@@ -59,24 +59,24 @@ class Account:
 
     @classmethod
     def get_accounts_with_budgets(cls, data):
-        query = "SELECT * FROM accounts LEFT JOIN budgets ON budgets.account_id = accounts.id WHERE accounts.id = %(id)s;"
+        query = "SELECT * FROM accounts LEFT JOIN inputs ON inputs.account_id = accounts.id WHERE accounts.id = %(id)s;"
         results = connectToMySQL(SCHEMA).query_db(query, data)
         if not results:
             return False
         account = cls(results[0])
         for data in results:
-            budget_data = {
-                "id": data["budgets.id"],
+            input_data = {
+                "id": data["inputs.id"],
                 "account_id": data["account_id"],
-                "bname": data["bname"],
+                "iname": data["iname"],
                 "amount": data["amount"],
-                "date": data["date"],
-                "inout": data["inout"],
-                "interval": data["interval"],
+                "idate": data["idate"],
+                "inorout": data["inorout"],
+                "frequency": data["frequency"],
                 "created_at": data["created_at"],
                 "updated_at": data["updated_at"]
             }
-            account.all_budgets.append(Budget(budget_data))
+            account.all_inputs.append(Budget(input_data))
         return account
 
     @staticmethod

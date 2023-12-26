@@ -42,7 +42,7 @@ class User:
 
     @classmethod
     def insert_user(cls, data):
-        query = "INSERT INTO users (fname, lname, email, password) VALUE (%(fname)s, %(lname)s, %(email)s, %(password)s)"
+        query = "INSERT INTO users (fname, lname, email, pw) VALUE (%(fname)s, %(lname)s, %(email)s, %(pw)s)"
         return connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod
@@ -89,7 +89,7 @@ class User:
             flash("Password must be at least 8 characters.")
             is_valid = False
 
-        if pd["pw"] != pd['cpw']:
+        if pd["pw"] != pd["cpw"]:
             flash("Passwords do not match.")
             is_valid = False
 

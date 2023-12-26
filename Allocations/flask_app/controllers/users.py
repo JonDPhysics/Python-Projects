@@ -1,7 +1,6 @@
 from typing import ParamSpecArgs
 from flask.globals import request
 from flask import render_template, redirect, request, session
-from flask_bcrypt import Bcrypt
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.account import Account
@@ -21,7 +20,7 @@ def dashboard():
 def reg():
     if not User.reg_val(request.form):
         return redirect("/")
-    hash_it_out = BCRYPT.generate_password_hash(request.form["pw"])
+    hash_it_out = BCRYPT.generate_password_hash(request.form['pw'])
     data = {
         **request.form,
         "pw": hash_it_out

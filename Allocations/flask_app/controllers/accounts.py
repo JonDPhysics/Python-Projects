@@ -21,7 +21,7 @@ def add_accounts():
 
 @app.route("/budget/<int:id>")
 def display_budget(id):
-    return render_template("budget.html", account = Account.get_accounts_with_budgets({"id": id}))
+    return render_template("budget.html", account = Account.get_accounts_with_budgets({"id": id}), theAccount = Account.get_account_by_id({"id":id}))
 
 @app.route("/account/edit/<int:id>")
 def edit_account(id):

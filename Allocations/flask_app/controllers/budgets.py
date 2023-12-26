@@ -1,21 +1,22 @@
 from typing import ParamSpecArgs
 from flask_app import app
 from flask.globals import request
-from flask import render_template, redirect, request, session
+from flask import render_template, redirect, request
 from flask_app.models.budget import Budget
+from flask_app.models.account import Account
 
-@app.route("/budget/new/<int:account_id>")
-def new_budget():
-    return render_template("add_budget.html", )
+@app.route("/budget/new/<int:id>")
+def new_budget(id):
+    return render_template("add_budget.html", account = Account.get_account_by_id({"id":id}))
 
-@app.route("/budget/add/<int:account_id>", methods=["POST"])
-def add_budget(account_id):
+@app.route("/budget/add/<int:id>", methods=["POST"])
+def add_budget(id):
     data = {
         **request.form,
-        "account_id": account_id
+        "account_id": id
     }
     Budget.insert_budget(data)
-    return redirect("budget.html")
+    return redirect("/dashboard")
 
 @app.route("/budget/edit/<int:id>")
 def edit_budget(id):
