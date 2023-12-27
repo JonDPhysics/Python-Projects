@@ -28,14 +28,14 @@
                         </td>
                         <td class="col">{{ account.balance }}</td>
                         <td class="col">
-                            <a href="/accounts/edit/{{ account.id }}">Edit</a>
-                            <a href="/accounts/delete/{{ account.id }}">Delete</a>
+                            <a href="/account/edit/{{ account.id }}">Edit</a>
+                            <a href="/account/delete/{{ account.id }}">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="/accounts/new">Add Account</a>
+        <a href="/account/new">Add Account</a>
         <a href="/logout">Logout</a>
     </div>
 </body>

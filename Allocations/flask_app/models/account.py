@@ -48,12 +48,12 @@ class Account:
 
     @classmethod
     def update_account(cls, data):
-        query = "UPDATE accounts SET aname = %(aname)s, balance = %(balance)s, adate = %(adate)s, user_id = %(user_id)s;"
+        query = "UPDATE accounts SET aname = %(aname)s, balance = %(balance)s, user_id = %(user_id)s WHERE id = %(id)s;"
         connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod
     def delete_account(cls, data):
-        query = "DELETE FROM accounts WHERE id = %(id);"
+        query = "DELETE FROM accounts WHERE id = %(id)s;"
         connectToMySQL(SCHEMA).query_db(query,data)
         return id
 

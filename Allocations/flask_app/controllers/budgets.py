@@ -31,4 +31,9 @@ def update_budget(account_id):
     Budget.update_budget(data)
     return render_template("budget.html")
 
+@app.route("/budget/delete/<int:id>")
+def delete_the_budget(id):
+    Budget.delete_budget({"id": id})
+    return render_template("budget.html")
+
 

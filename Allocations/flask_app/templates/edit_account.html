@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allocations</title>
+</head>
+<body>
+    <div id="container">
+        <div class="bar">
+            <h1>Rename Account</h1>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/budget/{{ account.id }}">{{ account.aname }}'s Budget</a>
+            <a href="/logout">Logout</a>
+        </div>
+        <form action="/account/update" method="post">
+            <div class="left">
+                <div>
+                    <label for="aname">Rename:</label>
+                    <input type="text" name="aname" placeholder="{{ account.aname }}">
+                </div>
+                <input type="hidden" name="balance" value="{{ account.balance }}">
+            </div>
+            <button>Update</button>
+        </form>
+    </div>
+</body>
+</html>
