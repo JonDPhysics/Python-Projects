@@ -4,6 +4,7 @@ from flask.globals import request
 from flask import render_template, redirect, request
 from flask_app.models.budget import Budget
 from flask_app.models.account import Account
+from flask import url_for
 
 @app.route("/budget/new/<int:id>")
 def new_budget(id):
@@ -16,20 +17,20 @@ def add_budget(id):
         "account_id": id
     }
     Budget.insert_budget(data)
-    return redirect("/dashboard")
+    return redirect(url_for('display_budget', id=id))
 
-@app.route("/budget/edit/<int:id>")
-def edit_budget(id):
-    return render_template("edit_budget.html", budget = Budget.get_budget_by_id({"id": id}))
+@app.route("/budget/edit/<int:account_id>/<int:id>")
+def edit_budget(account_id, id):
+    return render_template("edit_budget.html", account = Account.get_account_by_id({"id": account_id}), input = Budget.get_budget_by_id({"id": id}))
 
-@app.route("/budget/update/<int:account_id>")
-def update_budget(account_id):
+@app.route("/budget/update/<int:id>", methods=["POST"])
+def update_budgets(id):
     data = {
         **request.form,
-        "account_id": account_id
+        "account_id": id
     }
     Budget.update_budget(data)
-    return render_template("budget.html")
+    return redirect(url_for('display_budget', id= id))
 
 @app.route("/budget/delete/<int:id>/<int:account_id>")
 def delete_the_budget(id, account_id):
