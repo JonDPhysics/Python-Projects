@@ -54,8 +54,7 @@ class Account:
     @classmethod
     def delete_account(cls, data):
         query = "DELETE FROM accounts WHERE id = %(id)s;"
-        connectToMySQL(SCHEMA).query_db(query,data)
-        return id
+        return connectToMySQL(SCHEMA).query_db(query,data)
 
     @classmethod
     def get_accounts_with_budgets(cls, data):

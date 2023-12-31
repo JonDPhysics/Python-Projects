@@ -38,6 +38,14 @@ class Budget:
         if not results:
             return False
         return Budget(results[0])
+    
+    @classmethod
+    def get_budget_by_account_id(cls, data):
+        query = "SELECT * FROM inputs WHERE account_id = %(id)s;"
+        results = connectToMySQL(SCHEMA).query_db(query, data)
+        if not results:
+            return False
+        return Budget(results[0])
 
     @classmethod
     def insert_budget(cls, data):
@@ -52,8 +60,7 @@ class Budget:
     @classmethod
     def delete_budget(cls, data):
         query = "DELETE FROM inputs WHERE id = %(id)s;"
-        connectToMySQL(SCHEMA).query_db(query, data)
-        return id
+        return connectToMySQL(SCHEMA).query_db(query, data)
 
 
     @staticmethod
