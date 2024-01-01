@@ -13,7 +13,7 @@
             <a href="/logout">Logout</a>
         </div>
         <h1>Update {{ input.iname }} in {{ account.aname }}'s budget:</h1>
-        <form action="/budget/add/{{account.id}}" method="post">
+        <form action="/budget/update/{{account.id}}/{{ input.id }}" method="post">
             <div>
                 <div>
                     <label for="iname">Name:</label>
@@ -41,10 +41,11 @@
                 <div>
                     <label for="idate">Date:</label>
                     <input type="date" name="idate" placeholder="{{ input.idate }}">
+                    
                 </div>
                 <div>
                     <label for="frequency">Frequency:</label>
-                    <select name="frequency" aria-placeholder="{{ input.frequency }}">
+                    <select name="frequency" placeholder="{{ input.frequency }}">
                         <option value="ONCE">Once</option>
                         <option value="WEEKLY">Weekly</option>
                         <option value="BIWEEKLY">Bi-weekly</option>

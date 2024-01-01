@@ -54,7 +54,7 @@ class Budget:
 
     @classmethod
     def update_budget(cls, data):
-        query = "UPDATE inputs SET amount = %(amount)s, idate = %(idate)s, bname = %(iname)s, inorout = %(inorout)s, frequency = %(frequency)s, account_id = %(account_id)s;"
+        query = "UPDATE inputs SET iname = %(iname)s, amount = %(amount)s, idate = %(idate)s, inorout = %(inorout)s, frequency = %(frequency)s, account_id = %(account_id)s WHERE id = %(id)s;"
         connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod

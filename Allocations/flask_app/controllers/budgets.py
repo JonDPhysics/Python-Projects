@@ -23,10 +23,11 @@ def add_budget(id):
 def edit_budget(account_id, id):
     return render_template("edit_budget.html", account = Account.get_account_by_id({"id": account_id}), input = Budget.get_budget_by_id({"id": id}))
 
-@app.route("/budget/update/<int:id>", methods=["POST"])
-def update_budgets(id):
+@app.route("/budget/update/<int:id>/<int:inputID>", methods=["POST"])
+def update_budgets(id, inputID):
     data = {
         **request.form,
+        "id": inputID,
         "account_id": id
     }
     Budget.update_budget(data)

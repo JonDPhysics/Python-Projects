@@ -31,7 +31,7 @@
                     <td class="col">{{ input.idate }}</td>
                     <td>
                         <a href="/budget/edit/{{input.account_id}}/{{input.id}}">Edit</a>
-                        <a href="/budget/delete/{{input.id}}">Delete</a>
+                        <a href="/budget/delete/{{input.id}}/{{ input.account_id }}">Delete</a>
                 </tr>
                 {% endfor %}
             </tbody>

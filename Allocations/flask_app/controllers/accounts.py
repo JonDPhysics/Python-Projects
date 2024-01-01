@@ -28,10 +28,11 @@ def display_budget(id):
 def edit_account(id):
     return render_template("edit_account.html", account = Account.get_account_by_id({"id": id}))
 
-@app.route("/account/update", methods = ["POST"])
-def update_account():
+@app.route("/account/update/<int:id>", methods = ["POST"])
+def update_account(id):
     data ={
         **request.form,
+        "id": id,
         "user_id": session["uuid"]
     }
     Account.update_account(data)
@@ -39,5 +40,6 @@ def update_account():
 
 @app.route("/account/delete/<int:id>")
 def delete_the_account(id):
+    Account.delete_all_inputs({"account_id:": id})
     Account.delete_account({"id": id})
     return redirect("/dashboard")

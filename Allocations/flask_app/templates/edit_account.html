@@ -13,7 +13,7 @@
             <a href="/budget/{{ account.id }}">{{ account.aname }}'s Budget</a>
             <a href="/logout">Logout</a>
         </div>
-        <form action="/account/update" method="post">
+        <form action="/account/update/{{ account.id }}" method="post">
             <div class="left">
                 <div>
                     <label for="aname">Rename:</label>

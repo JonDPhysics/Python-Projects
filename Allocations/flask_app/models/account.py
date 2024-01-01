@@ -57,6 +57,11 @@ class Account:
         return connectToMySQL(SCHEMA).query_db(query,data)
 
     @classmethod
+    def delete_all_inputs(cls, data):
+        query = "DELETE FROM inputs WHERE account_id = %(account_id)s;"
+        return connectToMySQL(SCHEMA).query_db(query,data)
+
+    @classmethod
     def get_accounts_with_budgets(cls, data):
         query = "SELECT * FROM accounts LEFT JOIN inputs ON inputs.account_id = accounts.id WHERE accounts.id = %(id)s;"
         results = connectToMySQL(SCHEMA).query_db(query, data)
