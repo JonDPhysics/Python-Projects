@@ -6,13 +6,13 @@ from flask_app.models.budget import Budget, SCHEMA
 
 class Account:
     def __init__(self, data):
-        self.id = data["id"]
+        self.accounts_id = data["accounts_id"]
         self.user_id = data["user_id"]
-        self.aname = data["aname"]
-        self.balance = data["balance"]
+        self.account_name = data["account_name"]
+        self.current_balance = data["current_balance"]
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
-        self.all_inputs = []
+        self.all_transactions = []
 
     @classmethod
     def get_accounts(cls):
@@ -25,7 +25,7 @@ class Account:
 
     @classmethod
     def get_account_by_id(cls, data):
-        query = "SELECT * FROM accounts WHERE id = %(id)s;"
+        query = "SELECT * FROM accounts WHERE accounts_id = %(id)s;"
         results = connectToMySQL(SCHEMA).query_db(query, data)
         if not results:
             return False
@@ -43,51 +43,51 @@ class Account:
 
     @classmethod
     def insert_account(cls, data):
-        query = "INSERT INTO accounts (aname, balance, user_id) VALUE (%(aname)s, %(balance)s, %(user_id)s);"
+        query = "INSERT INTO accounts (account_name, current_balance, user_id) VALUE (%(account_name)s, %(current_balance)s, %(user_id)s);"
         return connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod
     def update_account(cls, data):
-        query = "UPDATE accounts SET aname = %(aname)s, balance = %(balance)s, user_id = %(user_id)s WHERE id = %(id)s;"
+        query = "UPDATE accounts SET aname = %(account_name)s, balance = %(current_balance)s, user_id = %(user_id)s WHERE accounts_id = %(accounts_id)s;"
         connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod
     def delete_account(cls, data):
-        query = "DELETE FROM accounts WHERE id = %(id)s;"
+        query = "DELETE FROM accounts WHERE accounts_id = %(id)s;"
         return connectToMySQL(SCHEMA).query_db(query,data)
 
     @classmethod
     def delete_all_inputs(cls, data):
-        query = "DELETE FROM inputs WHERE account_id = %(account_id)s;"
+        query = "DELETE FROM transactions WHERE account_id = %(account_id)s;"
         return connectToMySQL(SCHEMA).query_db(query,data)
 
     @classmethod
     def get_accounts_with_budgets(cls, data):
-        query = "SELECT * FROM accounts LEFT JOIN inputs ON inputs.account_id = accounts.id WHERE accounts.id = %(id)s;"
+        query = "SELECT * FROM accounts LEFT JOIN transactions ON is.account_id = accounts.accounts_id WHERE accounts.accounts_id = %(id)s;"
         results = connectToMySQL(SCHEMA).query_db(query, data)
         if not results:
             return False
         account = cls(results[0])
         for data in results:
-            input_data = {
-                "id": data["inputs.id"],
+            transaction_data = {
+                "transactions_id": data["transanctions.transactions_id"],
                 "account_id": data["account_id"],
-                "iname": data["iname"],
+                "transaction_name": data["transaction_name"],
                 "amount": data["amount"],
-                "idate": data["idate"],
+                "transaction_date": data["transaction_date"],
                 "inorout": data["inorout"],
                 "frequency": data["frequency"],
                 "created_at": data["created_at"],
                 "updated_at": data["updated_at"]
             }
-            account.all_inputs.append(Budget(input_data))
+            account.all_transactions.append(Budget(transaction_data))
         return account
 
     @staticmethod
     def add_val (pd):
         is_valid = True
 
-        if len(pd["aname"]) < 1:
+        if len(pd["account_name"]) < 1:
             flash("Account name is required.")
             is_valid = False
 
