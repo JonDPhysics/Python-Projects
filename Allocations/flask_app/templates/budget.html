@@ -29,9 +29,11 @@
                     <td class="col">{{ transaction.transaction_name }}</td>
                     <td class="col">{{ transaction.amount }}</td>
                     <td class="col">{{ transaction.transaction_date }}</td>
+                    <td></td>
                     <td>
                         <a href="/budget/edit/{{transaction.account_id}}/{{transaction.transactions_id}}">Edit</a>
                         <a href="/budget/delete/{{transaction.transactions_id}}/{{ transaction.account_id }}">Delete</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
