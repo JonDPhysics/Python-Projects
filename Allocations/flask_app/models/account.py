@@ -48,7 +48,7 @@ class Account:
 
     @classmethod
     def update_account(cls, data):
-        query = "UPDATE accounts SET aname = %(account_name)s, balance = %(current_balance)s, user_id = %(user_id)s WHERE accounts_id = %(accounts_id)s;"
+        query = "UPDATE accounts SET account_name = %(account_name)s, balance = %(current_balance)s, user_id = %(user_id)s WHERE accounts_id = %(accounts_id)s;"
         connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod
@@ -63,14 +63,14 @@ class Account:
 
     @classmethod
     def get_accounts_with_budgets(cls, data):
-        query = "SELECT * FROM accounts LEFT JOIN transactions ON is.account_id = accounts.accounts_id WHERE accounts.accounts_id = %(id)s;"
+        query = "SELECT * FROM accounts LEFT JOIN transactions ON transactions.account_id = accounts.accounts_id WHERE accounts.accounts_id = %(accounts_id)s;"
         results = connectToMySQL(SCHEMA).query_db(query, data)
         if not results:
             return False
         account = cls(results[0])
         for data in results:
             transaction_data = {
-                "transactions_id": data["transanctions.transactions_id"],
+                "transactions_id": data["transactions_id"],
                 "account_id": data["account_id"],
                 "transaction_name": data["transaction_name"],
                 "amount": data["amount"],

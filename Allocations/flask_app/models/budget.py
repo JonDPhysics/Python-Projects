@@ -17,6 +17,7 @@ class Budget:
         self.transaction_name = data['transaction_name']
         self.amount = data["amount"]
         self.transaction_date = data["transaction_date"]
+        self.description = data["description"]
         self.inorout = data['inorout']
         self.frequency = data["frequency"]
         self.created_at = data['created_at']
@@ -49,12 +50,12 @@ class Budget:
 
     @classmethod
     def insert_budget(cls, data):
-        query = "INSERT INTO transactions (transaction_name, amount, transaction_date, inorout, frequency, account_id) VALUE (%(transaction_name)s, %(amount)s, %(transaction_date)s, %(inorout)s, %(frequency)s, %(account_id)s);"
+        query = "INSERT INTO transactions (transaction_name, amount, transaction_date, description, inorout, frequency, account_id) VALUE (%(transaction_name)s, %(amount)s, %(transaction_date)s, %(description)s, %(inorout)s, %(frequency)s, %(account_id)s);"
         return connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod
     def update_budget(cls, data):
-        query = "UPDATE inputs SET iname = %(transaction_name)s, amount = %(amount)s, idate = %(transaction_date)s, inorout = %(inorout)s, frequency = %(frequency)s, account_id = %(account_id)s WHERE transactions_id = %(id)s;"
+        query = "UPDATE inputs SET iname = %(transaction_name)s, amount = %(amount)s, transaction_date = %(transaction_date)s, description = %(description)s, inorout = %(inorout)s, frequency = %(frequency)s, account_id = %(account_id)s WHERE transactions_id = %(id)s;"
         connectToMySQL(SCHEMA).query_db(query, data)
 
     @classmethod

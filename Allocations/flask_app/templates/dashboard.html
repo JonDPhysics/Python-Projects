@@ -9,32 +9,36 @@
     
     <div id="container">
         <div class="bar">
-            <h1>Welcome, {{ user.fname }}</h1>
+            <h1>Welcome, {{ user.first_name }}</h1>
         </div>
-        <h3>Your Accounts</h3>
-        <table>
-            <thead>
-                <tr class="topRow">
-                    <th class="topCol">Name</th>
-                    <th class="topCol">Balance</th>
-                    <th class="topCol">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for account in user.all_accounts: %}
-                    <tr class="row1">
-                        <td class="col">
-                            <a href="/budget/{{ account.id }}">{{ account.aname }}</a>
-                        </td>
-                        <td class="col">{{ account.balance }}</td>
-                        <td class="col">
-                            <a href="/account/edit/{{ account.id }}">Edit</a>
-                            <a href="/account/delete/{{ account.id }}">Delete</a>
-                        </td>
+        {% if user.all_accounts|length == 0 %}
+            <h3>No Accounts Created.</h3>
+        {% else: %}
+            <h3>Your Accounts</h3>
+            <table>
+                <thead>
+                    <tr class="topRow">
+                        <th class="topCol">Name</th>
+                        <th class="topCol">Balance</th>
+                        <th class="topCol">Actions</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for account in user.all_accounts %}
+                        <tr class="row1">
+                            <td class="col">
+                                <a href="/budget/{{ account.accounts_id }}">{{ account.account_name }}</a>
+                            </td>
+                            <td class="col">{{ account.current_balance }}</td>
+                            <td class="col">
+                                <a href="/account/edit/{{ account.accounts_id }}">Edit</a>
+                                <a href="/account/delete/{{ account.accounts_id }}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
         <a href="/account/new">Add Account</a>
         <a href="/logout">Logout</a>
     </div>

@@ -22,17 +22,17 @@ def add_accounts():
 
 @app.route("/budget/<int:id>")
 def display_budget(id):
-    return render_template("budget.html", account = Account.get_accounts_with_budgets({"id": id}))
+    return render_template("budget.html", account = Account.get_accounts_with_budgets({"accounts_id": id}))
 
 @app.route("/account/edit/<int:id>")
 def edit_account(id):
-    return render_template("edit_account.html", account = Account.get_account_by_id({"id": id}))
+    return render_template("edit_account.html", account = Account.get_account_by_id({"accounts_id": id}))
 
 @app.route("/account/update/<int:id>", methods = ["POST"])
 def update_account(id):
     data ={
         **request.form,
-        "id": id,
+        "accounts_id": id,
         "user_id": session["uuid"]
     }
     Account.update_account(data)

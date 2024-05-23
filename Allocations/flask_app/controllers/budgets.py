@@ -8,7 +8,7 @@ from flask import url_for
 
 @app.route("/budget/new/<int:id>")
 def new_budget(id):
-    return render_template("add_budget.html", account = Account.get_account_by_id({"id":id}))
+    return render_template("add_budget.html", account = Account.get_account_by_id({"accounts_id":id}))
 
 @app.route("/budget/add/<int:id>", methods=["POST"])
 def add_budget(id):
@@ -17,25 +17,25 @@ def add_budget(id):
         "account_id": id
     }
     Budget.insert_budget(data)
-    return redirect(url_for('display_budget', id=id))
+    return redirect(url_for('display_budget', accounts_id=id))
 
 @app.route("/budget/edit/<int:account_id>/<int:id>")
 def edit_budget(account_id, id):
-    return render_template("edit_budget.html", account = Account.get_account_by_id({"id": account_id}), input = Budget.get_budget_by_id({"id": id}))
+    return render_template("edit_budget.html", account = Account.get_account_by_id({"accounts_id": id}), transaction = Budget.get_budget_by_id({"id": id}))
 
 @app.route("/budget/update/<int:id>/<int:inputID>", methods=["POST"])
 def update_budgets(id, inputID):
     data = {
         **request.form,
-        "id": inputID,
+        "transactions_id": inputID,
         "account_id": id
     }
     Budget.update_budget(data)
-    return redirect(url_for('display_budget', id= id))
+    return redirect(url_for('display_budget', accounts_id= id))
 
 @app.route("/budget/delete/<int:id>/<int:account_id>")
 def delete_the_budget(id, account_id):
-    Budget.delete_budget({"id": id})
-    return render_template("budget.html", account = Account.get_accounts_with_budgets({"id": account_id}))
+    Budget.delete_budget({"transactions_id": id})
+    return render_template("budget.html", account = Account.get_accounts_with_budgets({"account_id": account_id}))
 
 

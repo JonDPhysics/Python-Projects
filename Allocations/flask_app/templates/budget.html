@@ -26,19 +26,19 @@
             <tbody>
                 {% for input in account.all_inputs: %}
                 <tr class="row1">
-                    <td class="col">{{ input.iname }}</td>
-                    <td class="col">{{ input.amount }}</td>
-                    <td class="col">{{ input.idate }}</td>
+                    <td class="col">{{ transaction.transaction_name }}</td>
+                    <td class="col">{{ transaction.amount }}</td>
+                    <td class="col">{{ transaction.transaction_date }}</td>
                     <td>
-                        <a href="/budget/edit/{{input.account_id}}/{{input.id}}">Edit</a>
-                        <a href="/budget/delete/{{input.id}}/{{ input.account_id }}">Delete</a>
+                        <a href="/budget/edit/{{transaction.account_id}}/{{transaction.transactions_id}}">Edit</a>
+                        <a href="/budget/delete/{{transaction.transactions_id}}/{{ transaction.account_id }}">Delete</a>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
     <div>
-        <h3><a href="/budget/new/{{account.id}}">Add to Budget</a></h3>
+        <h3><a href="/budget/new/{{account.accounts_id}}">Add to Budget</a></h3>
     </div>
 </body>
 </html>
