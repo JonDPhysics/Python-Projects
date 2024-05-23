@@ -25,7 +25,7 @@ class Account:
 
     @classmethod
     def get_account_by_id(cls, data):
-        query = "SELECT * FROM accounts WHERE accounts_id = %(id)s;"
+        query = "SELECT * FROM accounts WHERE accounts_id = %(accounts_id)s;"
         results = connectToMySQL(SCHEMA).query_db(query, data)
         if not results:
             return False
@@ -75,6 +75,7 @@ class Account:
                 "transaction_name": data["transaction_name"],
                 "amount": data["amount"],
                 "transaction_date": data["transaction_date"],
+                "description": data["description"],
                 "inorout": data["inorout"],
                 "frequency": data["frequency"],
                 "created_at": data["created_at"],

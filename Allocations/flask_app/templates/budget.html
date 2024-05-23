@@ -9,7 +9,7 @@
 <body>
     <div id="container">
         <div class="bar">
-            <h1>{{ account.aname }}</h1>
+            <h1>{{ account.account_name }}</h1>
             <a href="/dashboard">Dashboard</a>
             <a href="/logout">Logout</a>
         </div>
@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for input in account.all_inputs: %}
+                {% for transaction in account.all_transactions: %}
                 <tr class="row1">
                     <td class="col">{{ transaction.transaction_name }}</td>
                     <td class="col">{{ transaction.amount }}</td>

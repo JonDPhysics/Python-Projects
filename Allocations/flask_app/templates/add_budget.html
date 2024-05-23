@@ -8,16 +8,16 @@
 <body>
     <div id="container">
         <div class="bar">
-            <a href="/budget/{{ account.id }}">{{ account.aname }}</a>
+            <a href="/budget/{{ account.accounts_id }}">{{ account.account_name }}</a>
             <a href="/dashboard">Dashboard</a>
             <a href="/logout">Logout</a>
         </div>
-        <h1>Add Item to {{ account.aname }}'s budget:</h1>
-        <form action="/budget/add/{{account.id}}" method="post">
+        <h1>Add Item to {{ account.account_name }}'s budget:</h1>
+        <form action="/budget/add/{{account.accounts_id}}" method="post">
             <div>
                 <div>
-                    <label for="iname">Name:</label>
-                    <input type="text" name="iname">
+                    <label for="transaction_name">Name:</label>
+                    <input type="text" name="transaction_name">
                 </div>
                 <div>
                     <label for="amount">Amount:</label>
@@ -25,25 +25,30 @@
                 </div>
                 <div>
                     <label for="inorout">Income</label>
-                    <input type="radio" name="inorout" value="IN">
+                    <input type="radio" name="inorout" value="In">
                     <label for="inorout">Expense</label>
-                    <input type="radio" name="inorout" value="OUT">
+                    <input type="radio" name="inorout" value="Out">
 
                 </div>
                 <div>
-                    <label for="idate">Date:</label>
-                    <input type="date" name="idate">
+                    <label for="transaction_date">Date:</label>
+                    <input type="date" name="transaction_date">
                 </div>
                 <div>
                     <label for="frequency">Frequency:</label>
                     <select name="frequency">
-                        <option value="ONCE">Once</option>
-                        <option value="WEEKLY">Weekly</option>
-                        <option value="BIWEEKLY">Bi-weekly</option>
-                        <option value="MONTHLY">Monthly</option>
+                        <option value="Once">Once</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Biweekly">Bi-weekly</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Bimonthly">Bimonthly</option>
                         <option value="QUARTERLY">Quarterly</option>
                         <option value="YEARLY">Yearly</option>
                     </select>
+                </div>
+                <div>
+                    <label for="description">Description:</label><br>
+                    <textarea name="description" rows="4" cols="50" placeholder="Optional - Enter anything you want to remember about this transaction..."></textarea>
                 </div>
             </div>
             <button type="submit">Add</button>

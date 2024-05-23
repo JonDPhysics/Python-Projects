@@ -17,7 +17,7 @@ def add_budget(id):
         "account_id": id
     }
     Budget.insert_budget(data)
-    return redirect(url_for('display_budget', accounts_id=id))
+    return redirect(url_for('budget', accounts_id=id))
 
 @app.route("/budget/edit/<int:account_id>/<int:id>")
 def edit_budget(account_id, id):
@@ -31,7 +31,7 @@ def update_budgets(id, inputID):
         "account_id": id
     }
     Budget.update_budget(data)
-    return redirect(url_for('display_budget', accounts_id= id))
+    return redirect(url_for('budget', accounts_id= id))
 
 @app.route("/budget/delete/<int:id>/<int:account_id>")
 def delete_the_budget(id, account_id):
