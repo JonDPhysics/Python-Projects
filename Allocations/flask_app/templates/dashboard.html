@@ -19,7 +19,7 @@
                 <thead>
                     <tr class="topRow">
                         <th class="topCol">Name</th>
-                        <th class="topCol">Balance</th>
+                        <th class="topCol">Current Balance</th>
                         <th class="topCol">Actions</th>
                     </tr>
                 </thead>
@@ -29,7 +29,7 @@
                             <td class="col">
                                 <a href="/budget/{{ account.accounts_id }}">{{ account.account_name }}</a>
                             </td>
-                            <td class="col">{{ account.current_balance }}</td>
+                            <td class="col">${{ account.current_balance }}</td>
                             <td class="col">
                                 <a href="/account/edit/{{ account.accounts_id }}">Edit</a>
                                 <a href="/account/delete/{{ account.accounts_id }}">Delete</a>
