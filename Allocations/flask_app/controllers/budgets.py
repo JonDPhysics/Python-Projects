@@ -11,7 +11,7 @@ def new_budget(id):
     return render_template("add_budget.html", account = Account.get_account_by_id({"accounts_id":id}))
 
 @app.route("/budget/add/<int:id>", methods=["POST"])
-def add_budget(id):
+-
     data = {
         **request.form,
         "account_id": id
