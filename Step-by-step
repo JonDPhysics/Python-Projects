@@ -1,0 +1,12 @@
+```
+pip install pipenv
+```
+
+```
+pipenv install flask
+```
+To Run
+```
+pipenv shell
+```
+
